@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .timer {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      font-size: 18px;
+      margin: 0 10px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pomodoro Timer</h1>
+  <div class="timer" id="timer"></div>
+  <div class="buttons">
+    <button onclick="startTimer(25, 0)">Start Pomodoro</button>
+    <button onclick="startTimer(5, 0)">Start Break</button>
+  </div>
+
+  <script>
+    let countdown;
+    
+    function startTimer(minutes, seconds) {
+      clearInterval(countdown);
+
+      const timerElement = document.getElementById("timer");
+      
+      // Convert minutes and seconds to total seconds
+      let totalSeconds = minutes * 60 + seconds;
+
+      // Update the timer every second
+      countdown = setInterval(() => {
+        const formattedTime = formatTime(totalSeconds);
+        timerElement.innerHTML = formattedTime;
+
+        // Stop the timer if it reaches zero
+        if (totalSeconds <= 0) {
+          clearInterval(countdown);
+          timerElement.innerHTML = "Time's up!";
+        }
+
+        totalSeconds--;
+      }, 1000);
+    }
+
+    function formatTime(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      
+      // Format the time as mm:ss
+      const formattedMinutes = String(minutes).padStart(2, "0");
+      const formattedSeconds = String(seconds).padStart(2, "0");
+
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
+  </script>
+</body>
+</html>
