@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pomodoro Timer</title>
+  <title>番茄钟</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,6 +13,8 @@
     .timer {
       font-size: 48px;
       margin-bottom: 20px;
+      border: 2px solid #444;
+      padding: 10px;
     }
 
     .buttons {
@@ -27,11 +29,11 @@
   </style>
 </head>
 <body>
-  <h1>Pomodoro Timer</h1>
+  <h1>番茄钟</h1>
   <div class="timer" id="timer"></div>
   <div class="buttons">
-    <button onclick="startTimer(25, 0)">Start Pomodoro</button>
-    <button onclick="startTimer(5, 0)">Start Break</button>
+    <button onclick="startTimer(25, 0)">开始番茄工作时间</button>
+    <button onclick="startTimer(5, 0)">开始休息</button>
   </div>
 
   <script>
@@ -42,18 +44,18 @@
 
       const timerElement = document.getElementById("timer");
       
-      // Convert minutes and seconds to total seconds
+      // 将分钟和秒数转换为总秒数
       let totalSeconds = minutes * 60 + seconds;
 
-      // Update the timer every second
+      // 每秒钟更新一次计时器
       countdown = setInterval(() => {
         const formattedTime = formatTime(totalSeconds);
         timerElement.innerHTML = formattedTime;
 
-        // Stop the timer if it reaches zero
+        // 如果计时器归零，则停止计时
         if (totalSeconds <= 0) {
           clearInterval(countdown);
-          timerElement.innerHTML = "Time's up!";
+          timerElement.innerHTML = "时间到！";
         }
 
         totalSeconds--;
@@ -64,7 +66,7 @@
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
       
-      // Format the time as mm:ss
+      // 将时间格式化为 mm:ss
       const formattedMinutes = String(minutes).padStart(2, "0");
       const formattedSeconds = String(seconds).padStart(2, "0");
 
